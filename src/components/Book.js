@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Book = (props) => {
-  const { title, author } = props;
+  const { books } = props;
   return (
     <div className="actual-book">
       <li className="actual-book-details">
-        <span>{title}</span>
-        <span>{author}</span>
+        <span>{books.title}</span>
+        <span>{books.author}</span>
         <button type="button" className="remove-btn">Remove</button>
       </li>
     </div>

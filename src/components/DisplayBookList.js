@@ -8,7 +8,7 @@ const DisplayBookList = (props) => {
     <div>
       <ul>
         {bookDetails.map((book) => (
-          <Book key={book.id} book={book} />
+          <Book key={book.id} books={book} />
         ))}
       </ul>
     </div>
