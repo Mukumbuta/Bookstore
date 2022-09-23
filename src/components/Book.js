@@ -8,7 +8,7 @@ const Book = (props) => {
       <li className="actual-book-details">
         <span>{title}</span>
         <span>{author}</span>
-        <button>Remove</button>
+        <button type="button" className="remove-btn">Remove</button>
       </li>
     </div>
   );

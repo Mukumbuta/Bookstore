@@ -1,12 +1,10 @@
 import React from 'react';
-import StatusButton from "../components/StatusButton";
+import StatusButton from '../components/StatusButton';
 
-const Categories = () => {
-  return (
-    <div>
-      <StatusButton />
-    </div>
-  )
-}
+const Categories = () => (
+  <div>
+    <StatusButton />
+  </div>
+);
 
-export default Categories
+export default Categories;

@@ -1,6 +1,6 @@
 import React from 'react';
-import Book from './Book';
 import PropTypes from 'prop-types';
+import Book from './Book';
 
 const DisplayBookList = (props) => {
   const { bookDetails } = props;

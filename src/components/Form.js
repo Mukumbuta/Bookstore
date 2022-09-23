@@ -48,7 +48,7 @@ const Input = (props) => {
 };
 
 Input.propTypes = {
-  add: PropTypes.func.isRequired,
+  addBook: PropTypes.func.isRequired,
 };
 
 export default Input;

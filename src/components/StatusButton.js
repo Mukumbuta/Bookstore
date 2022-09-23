@@ -1,11 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-const StatusButton = () => {
-  return (
-    <div>
-      <button type="button" className="statusBtn">Check Status</button>
-    </div>
-  )
-}
+const StatusButton = () => (
+  <div>
+    <button type="button" className="statusBtn">Check Status</button>
+  </div>
+);
 
-export default StatusButton
+export default StatusButton;
