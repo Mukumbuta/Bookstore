@@ -20,6 +20,7 @@ nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   /* background: #371300; */
   margin-inline: 100px;
   height: 80px;
@@ -27,6 +28,7 @@ nav {
 
 nav h1 {
   font-size: 35px;
+
   /* color: #28a99e; */
   margin-top: 20px;
 }
@@ -39,6 +41,7 @@ ul {
 .nav-links {
   font-weight: 600;
   font-size: 17px;
+
   /* border-right: 3px solid hsl(202, 11%, 29%); */
   height: 25px;
   list-style: none;
