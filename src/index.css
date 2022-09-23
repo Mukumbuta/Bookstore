@@ -1,0 +1,55 @@
+html {
+  box-sizing: border-box;
+  min-height: 100%;
+}
+
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
+  padding: 0;
+  margin: 0;
+  top: 0;
+}
+
+body {
+  font-family: cursive;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-inline: 100px;
+  height: 80px;
+}
+
+nav h1 {
+  font-size: 35px;
+  margin-top: 20px;
+}
+
+ul {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-links {
+  font-weight: 600;
+  font-size: 17px;
+  height: 25px;
+  list-style: none;
+  padding-right: 10px;
+  list-style-type: none;
+}
+
+.nav-links:last-of-type {
+  border-right: none;
+}
+
+.statusBtn {
+  margin: 100px;
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
+}
