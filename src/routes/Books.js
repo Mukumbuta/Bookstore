@@ -1,10 +1,11 @@
 import React from 'react';
-import DisplayBookList from '../components/DisplayBookList';
+import BooksContainer from '../components/BooksContainer';
 
 const Books = () => (
   <div>
-    <DisplayBookList />
+    <BooksContainer />
   </div>
 );
 
 export default Books;
+
