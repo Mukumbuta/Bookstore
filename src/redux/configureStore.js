@@ -9,4 +9,4 @@ const rootReducer = configureStore({
   },
 });
 
-export { rootReducer };
+export default { rootReducer };
