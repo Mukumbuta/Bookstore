@@ -1,37 +1,42 @@
+import { v4 as uuidv4 } from 'uuid';
+
 const BOOK_ADDED = 'BOOK_ADDED';
 const BOOK_REMOVED = 'BOOK_REMOVED';
-const initState = [];
+const initState = [
+  { title: 'JavaScript', author: 'Kumar JB', id: uuidv4() },
+  { title: 'Python', author: 'Von Rosum', id: uuidv4() },
+  { title: 'React-Redux', author: 'Mukumbuta', id: uuidv4() },
+  { title: 'Django', author: 'KKK', id: uuidv4() },
+];
 
-// Action Creator
-const addActionCreator = (id, title, author) => ({
+const addActionCreator = (title, author) => ({
   type: BOOK_ADDED,
-  id,
+  id: uuidv4(),
   title,
   author,
 });
 
-const removeActionCreator = (id, title, author) => ({
-  type: BOOK_ADDED,
+const removeActionCreator = (id) => ({
+  type: BOOK_REMOVED,
   id,
-  title,
-  author,
 });
 
-// Reducer
 const booksReducer = (state = initState, action) => {
   switch (action.type) {
     case BOOK_ADDED:
       return [
         ...state,
         {
-          id: action.title,
+          id: action.id,
           title: action.title,
           author: action.author,
         },
 
       ];
     case BOOK_REMOVED:
-      return state.filter((book) => book.id !== action.id);
+      return [
+        ...state.filter((book) => book.id !== action.id),
+      ];
     default:
       return state;
   }
