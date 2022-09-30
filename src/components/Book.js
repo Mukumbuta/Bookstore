@@ -1,14 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { removeActionCreator } from '../redux/books/book';
 
 const Book = (props) => {
+  const dispatch = useDispatch();
   const { books } = props;
   return (
     <div className="actual-book">
       <li className="actual-book-details">
-        <span>{books.title}</span>
-        <span>{books.author}</span>
-        <button type="button" className="remove-btn">Remove</button>
+        <span>
+          Title:
+          {books.title}
+        </span>
+        <br />
+        <span>
+          Author:
+          {books.author}
+        </span>
+        <br />
+        <button
+          id={books.id}
+          type="button"
+          className="remove-btn"
+          onClick={(e) => dispatch(removeActionCreator(e.target.id))}
+        >
+          Remove
+        </button>
       </li>
     </div>
   );

@@ -1,9 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 import Book from './Book';
 
-const DisplayBookList = (props) => {
-  const { bookDetails } = props;
+const DisplayBookList = () => {
+  const bookDetails = useSelector((state) => state.booksReducer);
   return (
     <div>
       <ul>
@@ -13,10 +13,6 @@ const DisplayBookList = (props) => {
       </ul>
     </div>
   );
-};
-
-DisplayBookList.propTypes = {
-  bookDetails: PropTypes.string.isRequired,
 };
 
 export default DisplayBookList;
