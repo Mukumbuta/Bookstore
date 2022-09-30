@@ -1,32 +1,17 @@
-import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { addActionCreator } from '../redux/books/book';
 import Form from './Form';
 import DisplayBookList from './DisplayBookList';
 
 const BooksContainer = () => {
-  const [bookDetails, setbookDetails] = useState(
-    {
-      id: null,
-      title: null,
-      author: null,
-    },
-  );
-
-  const addBook = (title, author) => {
-    const newBook = {
-      id: uuidv4(),
-      title,
-      author,
-    };
-    setbookDetails([
-      ...bookDetails, newBook,
-    ]);
-  };
+  const dispatch = useDispatch();
+  const bookDetails = useSelector((state) => state.booksReducer);
 
   return (
     <div className="container">
       <div className="inner">
-        <Form addBook={addBook} />
+        <Form dispatch={dispatch} action={addActionCreator} />
         <DisplayBookList
           bookDetails={bookDetails}
         />
