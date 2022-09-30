@@ -15,10 +15,10 @@ const Input = (props) => {
   };
 
   const handleSubmit = (e) => {
-    const { addBook } = props;
+    const { dispatch, action } = props;
     const { title, author } = inputBook;
     e.preventDefault();
-    addBook(title, author);
+    dispatch(action(title, author));
     setInputBook({
       title: '',
       author: '',
@@ -27,13 +27,16 @@ const Input = (props) => {
 
   return (
     <div>
-      <form onSubmit={handleSubmit} className="form-cont">
+      <form action="#" onSubmit={handleSubmit} className="form-cont">
         <input
           type="text"
           placeholder="Title"
           className="book-title"
           name="title"
+          onChange={handleInput}
         />
+        {' '}
+        <br />
         <input
           type="text"
           placeholder="Author"
@@ -41,14 +44,17 @@ const Input = (props) => {
           name="author"
           onChange={handleInput}
         />
-        <button type="submit" className="submitBtn">Submit</button>
+        <br />
+        <button type="submit" className="submitBtn">Add New</button>
       </form>
     </div>
   );
 };
 
 Input.propTypes = {
-  addBook: PropTypes.func.isRequired,
+  dispatch: PropTypes.func.isRequired,
+  action: PropTypes.func.isRequired,
+
 };
 
 export default Input;
