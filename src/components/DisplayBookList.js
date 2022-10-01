@@ -1,14 +1,14 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
 import Book from './Book';
 
-const DisplayBookList = () => {
-  const bookDetails = useSelector((state) => state.booksReducer);
+const DisplayBookList = ({ bookDetails }) => {
+
   return (
     <div>
       <ul>
         {bookDetails.map((book) => (
-          <Book key={book.id} books={book} />
+          <Book key={book.item_id} books={book} />
         ))}
       </ul>
     </div>
