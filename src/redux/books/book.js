@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 const BOOK_ADDED = 'BOOK_ADDED';
@@ -11,11 +11,11 @@ const booksReducer = (state = initState, action) => {
   switch (action.type) {
     case API_BOOKS_FETCHED:
       return [
-        ...action.payload
+        ...action.payload,
       ];
     case BOOK_ADDED:
       return [
-        ...state, action.payload
+        ...state, action.payload,
       ];
     case BOOK_REMOVED:
       return [
@@ -28,12 +28,12 @@ const booksReducer = (state = initState, action) => {
 
 const apiBooksFetched = (payload) => ({
   type: API_BOOKS_FETCHED,
-  payload
-})
+  payload,
+});
 
 const addBookAction = (payload) => ({
   type: BOOK_ADDED,
-  payload
+  payload,
 });
 
 const removeBookAction = (id) => ({
@@ -61,27 +61,26 @@ const postBookToServer = (payload) => async (dispatch) => {
   });
 };
 
-const removeBook = (item_id) => async (dispatch) => {
-  dispatch(removeBookAction(item_id));
+const removeBook = (id) => async (dispatch) => {
+  dispatch(removeBookAction(id));
   await fetch(
-    `${baseURL}${item_id}`, 
+    `${baseURL}${id}`,
     {
       method: 'DELETE',
-      headers: { 
-        'Content-type': 'application/JSON'
+      headers: {
+        'Content-type': 'application/JSON',
       },
-    }
+    },
   );
-  console.log(item_id)
-  return item_id;
+  return id;
 };
 
 export default booksReducer;
-export { 
-  apiBooksFetched, 
-  fetchAPIBooks, 
+export {
+  apiBooksFetched,
+  fetchAPIBooks,
   postBookToServer,
   removeBook,
-  addBookAction, 
-  removeBookAction 
+  addBookAction,
+  removeBookAction,
 };

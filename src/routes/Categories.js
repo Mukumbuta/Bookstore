@@ -6,10 +6,10 @@ import { statusChecker } from '../redux/categories/categories';
 const Categories = () => {
   const dispatch = useDispatch();
   const { categoriesReducer } = useSelector((state) => state);
-  
+
   const checkStatus = () => {
     dispatch(statusChecker());
-  }
+  };
   return (
     <div>
       <p>{categoriesReducer}</p>

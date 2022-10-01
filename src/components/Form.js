@@ -4,16 +4,16 @@ import { useDispatch } from 'react-redux';
 import { postBookToServer } from '../redux/books/book';
 
 const Input = () => {
-  const [ title, setTitle ] = useState('');
-  const [ author, setAuthor ] = useState('');
-  const [ category, setCategory ] = useState('');
+  const [title, setTitle] = useState('');
+  const [author, setAuthor] = useState('');
+  const [category, setCategory] = useState('');
 
   const categories = [
-    'Classic', 
-    'Fiction', 
-    'Politics', 
-    'Literature', 
-    'Natural Sciences'
+    'Classic',
+    'Fiction',
+    'Politics',
+    'Literature',
+    'Natural Sciences',
   ];
   const dispatch = useDispatch();
 
@@ -27,13 +27,13 @@ const Input = () => {
           author,
           category,
         },
-       
+
       };
 
       dispatch(postBookToServer(newBook));
       setTitle('');
       setAuthor('');
-      setCategory('')
+      setCategory('');
     }
   };
 
