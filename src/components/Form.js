@@ -1,39 +1,53 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
+import { useDispatch } from 'react-redux';
+import { postBookToServer } from '../redux/books/book';
 
-const Input = (props) => {
-  const [inputBook, setInputBook] = useState({
-    title: '',
-    author: '',
-  });
+const Input = () => {
+  const [ title, setTitle ] = useState('');
+  const [ author, setAuthor ] = useState('');
+  const [ category, setCategory ] = useState('');
 
-  const handleInput = (e) => {
-    setInputBook({
-      ...inputBook,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const categories = [
+    'Classic', 
+    'Fiction', 
+    'Politics', 
+    'Literature', 
+    'Natural Sciences'
+  ];
+  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
-    const { dispatch, action } = props;
-    const { title, author } = inputBook;
     e.preventDefault();
-    dispatch(action(title, author));
-    setInputBook({
-      title: '',
-      author: '',
-    });
+    if (title.trim() && author.trim()) {
+      const newBook = {
+        payload: {
+          item_id: uuidv4(),
+          title,
+          author,
+          category,
+        },
+       
+      };
+
+      dispatch(postBookToServer(newBook));
+      setTitle('');
+      setAuthor('');
+      setCategory('')
+    }
   };
 
   return (
     <div>
+      <h3> Add New Book</h3>
       <form action="#" onSubmit={handleSubmit} className="form-cont">
         <input
           type="text"
           placeholder="Title"
           className="book-title"
           name="title"
-          onChange={handleInput}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
         {' '}
         <br />
@@ -42,19 +56,21 @@ const Input = (props) => {
           placeholder="Author"
           className="book-author"
           name="author"
-          onChange={handleInput}
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
         />
-        <br />
-        <button type="submit" className="submitBtn">Add New</button>
+        <select className="category-menu" placeholder="Category" name="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="" disabled>Select Category...</option>
+          {categories.sort().map((bookCategory) => (
+            <option key={uuidv4()} value={bookCategory}>
+              {bookCategory}
+            </option>
+          ))}
+        </select>
+        <button type="submit" className="submitBtn">Add Book</button>
       </form>
     </div>
   );
-};
-
-Input.propTypes = {
-  dispatch: PropTypes.func.isRequired,
-  action: PropTypes.func.isRequired,
-
 };
 
 export default Input;
