@@ -1,7 +1,7 @@
 const STATUS_CHECKED = 'STATUS_CHECKED';
 const initialStatus = [];
 
-const statusCheckCreator = () => ({
+const statusChecker = () => ({
   type: STATUS_CHECKED,
 });
 
@@ -15,4 +15,4 @@ const categoriesReducer = (state = initialStatus, action) => {
 };
 
 export default categoriesReducer;
-export { statusCheckCreator };
+export { statusChecker };
