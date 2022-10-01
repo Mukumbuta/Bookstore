@@ -1,15 +1,21 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import StatusButton from '../components/StatusButton';
-import { statusCheckCreator } from '../redux/categories/categories';
+
+import { statusChecker } from '../redux/categories/categories';
 
 const Categories = () => {
   const dispatch = useDispatch();
-  const categories = useSelector((state) => state.categoriesReducer);
+  const { categoriesReducer } = useSelector((state) => state);
+  
+  const checkStatus = () => {
+    dispatch(statusChecker());
+  }
   return (
     <div>
-      <p>{categories}</p>
-      <StatusButton dispatch={dispatch} action={statusCheckCreator} />
+      <p>{categoriesReducer}</p>
+      <button type="button" className="statusBtn" onClick={checkStatus}>
+        Check Status
+      </button>
     </div>
   );
 };
