@@ -19,7 +19,7 @@ const booksReducer = (state = initState, action) => {
       ];
     case BOOK_REMOVED:
       return [
-        ...state.filter((book) => book.payload.item_id !== action.id),
+        ...state.filter((book) => book.id !== action.id),
       ];
     default:
       return state;
@@ -40,15 +40,15 @@ const removeBookAction = (id) => ({
   type: BOOK_REMOVED,
   id,
 });
-const fetchAPIBooks = createAsyncThunk('get-books', async () => {
-  const response = await axios.get(baseURL);
-  const responseData = await response.data;
+const fetchAPIBooks = () => async (dispatch) => {
+  const response = await fetch(baseURL);
+  const responseData = await response.json();
   const remoteBooks = Object.entries(responseData).map((respData) => ({
     id: respData[0],
     ...respData[1][0],
   }));
-  return remoteBooks;
-});
+  dispatch(apiBooksFetched(remoteBooks));
+};
 
 const postBookToServer = (payload) => async (dispatch) => {
   dispatch(addBookAction(payload));

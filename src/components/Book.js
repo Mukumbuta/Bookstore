@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { removeBook } from '../redux/books/book';
 
 const Book = ({ books }) => {
+  console.log(books)
   const dispatch = useDispatch();
 
   const handleBookRemoval = (e) => {
@@ -14,17 +15,17 @@ const Book = ({ books }) => {
   return (
     <div className="actual-book">
       <span className="actual-book-details">
-        {books.payload.title}
+        {books.title}
       </span>
       <br />
       <br />
       <span className="actual-book-details">
-        {books.payload.author}
+        {books.author}
       </span>
       <br />
       <br />
       <button
-        id={books.payload.item_id}
+        id={books.id}
         type="button"
         className="remove-btn"
         onClick={(e) => handleBookRemoval(e)}

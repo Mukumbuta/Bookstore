@@ -49,6 +49,14 @@ const Input = () => {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
+        <select className="category-menu" placeholder="Category" name="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+          <option value="" disabled>Select Category...</option>
+          {categories.sort().map((bookCategory) => (
+            <option key={uuidv4()} value={bookCategory}>
+              {bookCategory}
+            </option>
+          ))}
+        </select>
         {' '}
         <br />
         <input
@@ -58,16 +66,8 @@ const Input = () => {
           name="author"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
-        />
-        <select className="category-menu" placeholder="Category" name="category" value={category} onChange={(e) => setCategory(e.target.value)}>
-          <option value="" disabled>Select Category...</option>
-          {categories.sort().map((bookCategory) => (
-            <option key={uuidv4()} value={bookCategory}>
-              {bookCategory}
-            </option>
-          ))}
-        </select>
-        <button type="submit" className="submitBtn">Add Book</button>
+        /> <br/>
+        <button type="submit" className="submitBtn">Add Book</button><br/><br/>
       </form>
     </div>
   );
