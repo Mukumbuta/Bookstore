@@ -9,7 +9,7 @@ const BooksContainer = () => {
   const bookDetails = useSelector((state) => state.booksReducer);
   useEffect(() => {
     fetchAPIBooks();
-  }, [bookDetails]);
+  }, []);
 
   return (
     <div className="container">

@@ -1,6 +1,3 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
-
 const BOOK_ADDED = 'BOOK_ADDED';
 const BOOK_REMOVED = 'BOOK_REMOVED';
 const API_BOOKS_FETCHED = 'API_BOOKS_FETCHED';

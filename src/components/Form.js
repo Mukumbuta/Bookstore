@@ -19,7 +19,7 @@ const Input = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (title.trim() && author.trim()) {
+    if (title && author && category) {
       const newBook = {
         payload: {
           item_id: uuidv4(),
@@ -29,11 +29,10 @@ const Input = () => {
         },
 
       };
-
-      dispatch(postBookToServer(newBook));
       setTitle('');
       setAuthor('');
       setCategory('');
+      dispatch(postBookToServer(newBook));
     }
   };
 
@@ -66,8 +65,12 @@ const Input = () => {
           name="author"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
-        /> <br/>
-        <button type="submit" className="submitBtn">Add Book</button><br/><br/>
+        />
+        {' '}
+        <br />
+        <button type="submit" className="submitBtn">Add Book</button>
+        <br />
+        <br />
       </form>
     </div>
   );
