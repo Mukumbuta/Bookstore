@@ -1,25 +1,17 @@
-import { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import BooksDisplay from './components/BooksDisplay';
-import Headers from './components/headers';
-import { fetchBooks } from './redux/books/books';
-import './App.css';
+import { Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Categories from './routes/Categories';
+import Books from './routes/Books';
 
 function App() {
-  const books = useSelector((state) => state.books.books);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(fetchBooks());
-  }, [dispatch, books]);
-
   return (
-    <>
-      <div className="container">
-        <Headers />
-        <BooksDisplay books={books} />
-      </div>
-    </>
+    <div className="App">
+      <Navbar />
+      <Routes>
+        <Route exact path="/" element={<Books />} />
+        <Route exact path="/categories" element={<Categories />} />
+      </Routes>
+    </div>
   );
 }
 

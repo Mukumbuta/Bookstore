@@ -1,34 +1,55 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;500&family=Roboto+Slab:wght@300;500;700&display=swap');
-
-:root {
-  --color-accent: #0290ff;
-  --color-primary: #fff;
-  --text-color: #867e7e;
-  --text-hover: black;
+html {
+  box-sizing: border-box;
+  min-height: 100%;
 }
 
-* {
-  margin: 0;
+*,
+*::after,
+*::before {
+  box-sizing: inherit;
   padding: 0;
-  box-sizing: border-box;
+  margin: 0;
+  top: 0;
 }
 
 body {
-  background: #fafafa;
-  font-family: 'Roboto Slab', serif;
+  font-family: cursive;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-inline: 100px;
+  height: 80px;
+}
+
+nav h1 {
+  font-size: 35px;
+  margin-top: 20px;
 }
 
 ul {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-links {
+  font-weight: 600;
+  font-size: 17px;
+  height: 25px;
   list-style: none;
+  padding-right: 10px;
+  list-style-type: none;
 }
 
-a {
-  text-decoration: none;
-  color: var(--text-color);
-  font-family: 'Montserrat', serif;
-  transition: 0.5s ease;
+.nav-links:last-of-type {
+  border-right: none;
 }
 
-a:hover {
-  color: var(--text-hover);
+.statusBtn {
+  margin: 100px;
+  padding: 10px;
+  font-weight: 600;
+  cursor: pointer;
 }
