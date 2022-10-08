@@ -1,39 +1,47 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { useDispatch } from 'react-redux';
-import { postBookToServer } from '../redux/books/book';
+import { postBook } from '../redux/books/book';
 
 const Input = () => {
-  const [title, setTitle] = useState('');
-  const [author, setAuthor] = useState('');
-  const [category, setCategory] = useState('');
+  const [inputData, setInputData] = useState(
+    {
+      title: '',
+      author: '',
+      category: ''
+    }
+  )
 
-  const categories = [
-    'Classic',
-    'Fiction',
-    'Politics',
-    'Literature',
-    'Natural Sciences',
-  ];
   const dispatch = useDispatch();
+  const categories = ['Poetry & Art', 'Fiction', 'Politics', 'Literature', 'Natural Sciences'];
+
+  const handleChange = (e) => {
+    setInputData((stateData) => {
+      return {
+        ...stateData,
+        [e.target.name]: e.target.value
+      }      
+    })
+  }
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    if (title && author && category) {
+    const { title, author, category } = inputData;
+    if (title.trim() && author.trim() && category.trim()) {
       const newBook = {
-        payload: {
           item_id: uuidv4(),
           title,
           author,
           category,
-        },
-
       };
-      setTitle('');
-      setAuthor('');
-      setCategory('');
-      dispatch(postBookToServer(newBook));
+      dispatch(postBook(newBook));
     }
+    setInputData(
+      {
+        title: '',
+        author: '',
+        category: ''
+      }
+    )
   };
 
   return (
@@ -45,10 +53,12 @@ const Input = () => {
           placeholder="Title"
           className="book-title"
           name="title"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
+          value={inputData.title}
+          onChange={handleChange}
         />
-        <select className="category-menu" placeholder="Category" name="category" value={category} onChange={(e) => setCategory(e.target.value)}>
+        <select className="category-menu" 
+          placeholder="Category" name="category" 
+          value={inputData.category} onChange={handleChange}>
           <option value="" disabled>Select Category...</option>
           {categories.sort().map((bookCategory) => (
             <option key={uuidv4()} value={bookCategory}>
@@ -63,8 +73,8 @@ const Input = () => {
           placeholder="Author"
           className="book-author"
           name="author"
-          value={author}
-          onChange={(e) => setAuthor(e.target.value)}
+          value={inputData.author}
+          onChange={handleChange}
         />
         {' '}
         <br />

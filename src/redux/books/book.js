@@ -1,65 +1,52 @@
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+
 const BOOK_ADDED = 'BOOK_ADDED';
 const BOOK_REMOVED = 'BOOK_REMOVED';
 const API_BOOKS_FETCHED = 'API_BOOKS_FETCHED';
 const baseURL = 'https://us-central1-bookstore-api-e63c8.cloudfunctions.net/bookstoreApi/apps/NQw75neHFwyUpwkLwqYz/books/';
-const initState = [];
+const initialState = {
+  books: [],
+  loading: false
+}
 
-const booksReducer = (state = initState, action) => {
-  switch (action.type) {
-    case API_BOOKS_FETCHED:
-      return [
-        ...action.payload,
-      ];
-    case BOOK_ADDED:
-      return [
-        ...state, action.payload,
-      ];
-    case BOOK_REMOVED:
-      return [
-        ...state.filter((book) => book.id !== action.id),
-      ];
-    default:
-      return state;
-  }
-};
-
-const apiBooksFetched = (payload) => ({
-  type: API_BOOKS_FETCHED,
-  payload,
-});
-
-const addBookAction = (payload) => ({
-  type: BOOK_ADDED,
-  payload,
-});
-
-const removeBookAction = (id) => ({
-  type: BOOK_REMOVED,
-  id,
-});
-const fetchAPIBooks = () => async (dispatch) => {
-  const response = await fetch(baseURL);
-  const responseData = await response.json();
-  const remoteBooks = Object.entries(responseData).map((respData) => ({
-    id: respData[0],
-    ...respData[1][0],
+export const fetchAPIBooks = createAsyncThunk(
+  API_BOOKS_FETCHED, 
+  async () => {
+    const response = await axios.get(baseURL);
+    const responseData = await response.data;
+    const remoteBooks = Object.entries(responseData).map((respData) => ({
+      id: respData[0],
+      ...respData[1][0],
   }));
-  dispatch(apiBooksFetched(remoteBooks));
-};
+  return remoteBooks
+});
 
-const postBookToServer = (payload) => async (dispatch) => {
-  dispatch(addBookAction(payload));
-  await fetch(baseURL, {
-    method: 'POST',
-    body: JSON.stringify(payload.payload),
-    headers: {
-      'content-Type': 'application/json',
-    },
-  });
-};
+export const postBook = createAsyncThunk(
+  BOOK_ADDED, 
+  async (data, {rejectWithValue}) => {
+    try {
+      const response = await fetch(
+        baseURL, 
+        {
+          method: 'POST',
+          body: JSON.stringify(data),
+          headers: {
+            'content-Type': 'application/json',
+          },
+        }
+      )
+      const apidata = await response.json() 
+      return apidata
+    } catch (err) {
+      return rejectWithValue(err.message);
+    }
+  }
+);
 
-const removeBook = (id) => async (dispatch) => {
-  dispatch(removeBookAction(id));
+export const removeBook = createAsyncThunk(
+  BOOK_REMOVED, 
+  async (id) => {
   await fetch(
     `${baseURL}${id}`,
     {
@@ -70,14 +57,60 @@ const removeBook = (id) => async (dispatch) => {
     },
   );
   return id;
-};
+});
 
-export default booksReducer;
-export {
-  apiBooksFetched,
-  fetchAPIBooks,
-  postBookToServer,
-  removeBook,
-  addBookAction,
-  removeBookAction,
-};
+const bookSlice = createSlice({
+  name: 'books',
+  initialState,
+  reducers: {
+    addBooks: (state, action) => ({
+      ...state,
+      books: [
+        ...state.books,
+        [
+          {
+            id: action.payload.item_id,
+            title: action.payload.title,
+            category: action.payload.category,
+            author: action.payload.author,
+          },
+        ],
+      ],
+    }),
+  },
+
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchAPIBooks.pending, (state) => {
+        state.loading = true
+      })
+
+      .addCase(fetchAPIBooks.fulfilled, (state, { payload }) => {
+          state.loading = false;
+          state.books = payload;
+      })
+
+      .addCase(fetchAPIBooks.rejected, (state,action) => {
+        state.loading = false
+        throw new Error(action.error);
+      })
+      
+      .addCase(postBook.fulfilled, (state, { payload }) => {
+        state.loading = false
+        state.books = payload  
+        console.log(payload)
+      })
+
+      .addCase(postBook.rejected, (action) => {
+        return  action.payload;
+      })
+
+      .addCase(removeBook.fulfilled, (state, action) => {
+          let currState = state;
+          currState = action.payload;
+      });
+  },
+});
+
+export default bookSlice;
+export const addBooks = bookSlice.actions;

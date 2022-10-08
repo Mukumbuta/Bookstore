@@ -4,12 +4,12 @@ import { useDispatch } from 'react-redux';
 import { removeBook } from '../redux/books/book';
 
 const Book = ({ books }) => {
-  console.log(books);
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const handleBookRemoval = (e) => {
     const { id } = e.target;
     dispatch(removeBook(id));
+
   };
 
   return (

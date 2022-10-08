@@ -5,7 +5,9 @@ import './index.css';
 import { BrowserRouter as Router } from 'react-router-dom';
 import App from './App';
 import store from './redux/configureStore';
+import { fetchAPIBooks } from './redux/books/book';
 
+store.dispatch(fetchAPIBooks());
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
