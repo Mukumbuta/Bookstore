@@ -22,7 +22,7 @@ export const postBooks = createAsyncThunk(BOOK_ADDED, async (payload) => {
     method: 'POST',
     body: JSON.stringify(payload),
     headers: {
-      'content-Type': 'application/json',
+      'Content-Type': 'application/json',
     },
   });
 

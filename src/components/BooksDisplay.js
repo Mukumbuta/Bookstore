@@ -8,7 +8,7 @@ function BooksDisplay({ books }) {
   ));
 
   return (
-    <div className="container">
+    <div className="books-container">
       {list}
       <Form />
     </div>
@@ -16,8 +16,8 @@ function BooksDisplay({ books }) {
 }
 
 BooksDisplay.propTypes = {
-  /* eslint-disable react/forbid-prop-types */
-  books: PropTypes.array.isRequired,
+  /* eslint-disable */
+    books: PropTypes.array.isRequired, 
 };
 
 export default BooksDisplay;
