@@ -1,41 +1,43 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+// /*eslint-disable */
 import { useDispatch } from 'react-redux';
-import { removeActionCreator } from '../redux/books/book';
+import PropTypes from 'prop-types';
+import Remove from './removeButton';
+import './Book.css';
+import { removeBook } from '../redux/books/books';
 
-const Book = (props) => {
+function Book({ id, title, author }) {
   const dispatch = useDispatch();
-  const { books } = props;
+
+  const removeBooks = () => {
+    dispatch(removeBook(id));
+  };
   return (
-    <div className="actual-book">
-      <li className="actual-book-details">
-        <span>
-          Title:
-          {books.title}
-        </span>
-        <br />
-        <span>
-          Author:
-          {books.author}
-        </span>
-        <br />
-        <button
-          id={books.id}
-          type="button"
-          className="remove-btn"
-          onClick={(e) => dispatch(removeActionCreator(e.target.id))}
-        >
-          Remove
-        </button>
-      </li>
+    <div className="book-container">
+      <div className="first-div">
+        <span>Action</span>
+        <h4>{title}</h4>
+        <p>{author}</p>
+        <div className="comment-container">
+          <button type="button">Comments</button>
+          <Remove removeBooks={removeBooks} />
+          <button type="button">Edit</button>
+        </div>
+      </div>
+
+      <div className="spin-update">64% completed</div>
+
+      <div className="third-div">
+        <span>CURRENT CHAPTER</span>
+        <h5>Chapter 17</h5>
+        <button type="button">UPDATE PROGRESS</button>
+      </div>
     </div>
   );
-};
+}
 
 Book.propTypes = {
-  books: PropTypes.string.isRequired,
+  id: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
   author: PropTypes.string.isRequired,
 };
-
 export default Book;
